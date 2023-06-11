@@ -7,8 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1DLaOxMhJA2Uo42CfsEoOXvNEOpejARNh
 """
 
-
-
 import streamlit as st
 import pandas as pd
 from sklearn.cluster import KMeans
@@ -78,14 +76,35 @@ if "df" in locals():
         lightgbm_balanced = create_model('lightgbm', fold=5)
         tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
         evaluate_model(lightgbm_balanced)
-
-    # Model interpretation
-    if st.button("Interpret Model"):
+        
+        
+        # Model interpretation
         interpret_model(tuned_lightgbm_balanced)
 
-    # Prediction on unseen data
-    if st.button("Make Predictions"):
-        unseen_data = predict_model(tuned_lightgbm_balanced, data=data_unseen)
+        # Prediction on unseen data
+        unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
+        st.write("Predicted Data:")
         st.write(unseen_data.head(10))
 
+        # Visualization
+        st.write("Feature Importance:")
+        plot_model(tuned_lightgbm_balanced, plot="feature")
 
+        st.write("Confusion Matrix:")
+        plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+
+        st.write("ROC Curve:")
+        plot_model(tuned_lightgbm_balanced, plot="auc")
+
+        st.write("SHAP Values:")
+        explainer = shap.Explainer(tuned_lightgbm_balanced)
+        shap_values = explainer(df2)
+        shap.summary_plot(shap_values, df2)
+
+        # Save the model as pickle
+        model_filename = "trained_model.pkl"
+        with open(model_filename, "wb") as file:
+            pickle.dump(tuned_lightgbm_balanced, file)
+        st.write(f"Trained model saved as {model_filename}")
+
+ 
