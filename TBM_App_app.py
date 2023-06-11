@@ -92,12 +92,18 @@ if "df" in locals():
         # Visualization
         st.write("Feature Importance:")
         plot_model(tuned_lightgbm_balanced, plot="feature")
+        st.pyplot(roc_plot)
 
         st.write("Confusion Matrix:")
         plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        st.pyplot(roc_plot)
 
         st.write("ROC Curve:")
         plot_model(tuned_lightgbm_balanced, plot="auc")
+        st.pyplot(roc_plot)
+        
+        # Convert 'Layers' column to integer data type
+        df2['Layers'] = df2['Layers'].astype(int)
 
         st.write("SHAP Values:")
         explainer = shap.TreeExplainer(tuned_lightgbm_balanced)
