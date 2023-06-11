@@ -80,15 +80,15 @@ if "df" in locals():
         best_model1 = compare_models(sort="F1")
         lightgbm_balanced = create_model('lightgbm', fold=5)
         tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
-        evaluate_model(lightgbm_balanced)
+        evaluate_model(tuned_lightgbm_balanced)
 
     # Model interpretation
     if st.button("Interpret Model"):
         # Get the underlying LightGBM model from the PyCaret pipeline
-        lightgbm_model = tuned_lightgbm_balanced.get_model('lightgbm')
+        tuned_lightgbm_model = tuned_lightgbm_balanced.get_model('lightgbm')
 
         # Calculate SHAP values
-        explainer = shap.Explainer(lightgbm_model)
+        explainer = shap.Explainer(tuned_lightgbm_model)
         shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
 
         # Visualize SHAP summary plot
