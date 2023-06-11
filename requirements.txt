@@ -1,6 +1,6 @@
 imbalanced-learn == 0.10.1
 pycaret == 3.0.2
-cluster-over-sampling == 0.5.0
+cluster-over-sampling==0.2.5
 clover == 0.2.2
 shap == 0.41.0
 streamlit == 1.23.1
