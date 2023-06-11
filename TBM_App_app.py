@@ -93,16 +93,16 @@ if "df" in locals():
         
         
         st.write("Feature Importance:")
-        plot_model(tuned_lightgbm_balanced, plot="feature")
-        st.pyplot(feature)
+        fig_feature=plot_model(tuned_lightgbm_balanced, plot="feature")
+        st.pyplot(fig_feature)
 
         st.write("Confusion Matrix:")
-        plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-        st.pyplot(confusion_matrix)
+        fig_cm=plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        st.pyplot(fig_cm)
 
         st.write("ROC Curve:")
-        plot_model(tuned_lightgbm_balanced, plot="auc")
-        st.pyplot(auc)
+        fig_auc=plot_model(tuned_lightgbm_balanced, plot="auc")
+        st.pyplot(fig_auc)
         
         # Convert 'Layers' column to integer data type
         df2['Layers'] = df2['Layers'].astype(int)
