@@ -7,17 +7,17 @@ Original file is located at
     https://colab.research.google.com/drive/1DLaOxMhJA2Uo42CfsEoOXvNEOpejARNh
 """
 
-!pip install streamlit
-!pip install pandas
-!pip install scikit-learn
-!pip install imbalanced-learn
-!pip install pycaret
-!pip install clover
-!pip install shap
+pip install streamlit
+pip install pandas
+pip install scikit-learn
+pip install imbalanced-learn
+pip install pycaret
+pip install clover
+pip install shap
 
-!pip install -U cluster-over-sampling
+pip install -U cluster-over-sampling
 
-!pip install --upgrade clover
+pip install --upgrade clover
 
 import streamlit as st
 import pandas as pd
