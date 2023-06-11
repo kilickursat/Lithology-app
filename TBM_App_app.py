@@ -107,18 +107,18 @@ if "df" in locals():
         # Visualization
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.write("Feature Importance:")
-        fig_feature, ax_feature = plt.subplots()
-        plot_model(tuned_lightgbm_balanced, plot="feature",ax=ax_feature)
+        #fig_feature, ax_feature = plt.subplots()
+        plot_model(tuned_lightgbm_balanced, plot="feature")
         st.pyplot(fig_feature)
 
         st.write("Confusion Matrix:")
-        fig_matrix, ax_matrix = plt.subplots()
-        plot_model(tuned_lightgbm_balanced, plot="confusion_matrix", ax=ax_matrix)
+        #fig_matrix, ax_matrix = plt.subplots()
+        plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
         st.pyplot(fig_matrix)
 
         st.write("ROC Curve:")
-        fig_roc, ax_roc = plt.subplots()
-        plot_model(tuned_lightgbm_balanced, plot="auc", ax=ax_roc)
+        #fig_roc, ax_roc = plt.subplots()
+        plot_model(tuned_lightgbm_balanced, plot="auc")
         st.pyplot(fig_roc)
 
 
