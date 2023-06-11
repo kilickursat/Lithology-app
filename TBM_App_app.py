@@ -117,3 +117,5 @@ if "df" in locals():
         fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
         st.pyplot(fig_roc)
 
+
+
