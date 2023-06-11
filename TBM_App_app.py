@@ -90,17 +90,21 @@ if "df" in locals():
         st.write(unseen_data.head(10))
 
         # Visualization
+        st.write("Classification report:")
+        plot_model(tuned_lightgbm_balanced, plot="class_report")
+        st.pyplot(class_report)
+        
         st.write("Feature Importance:")
         plot_model(tuned_lightgbm_balanced, plot="feature")
-        st.pyplot(roc_plot)
+        st.pyplot(feature)
 
         st.write("Confusion Matrix:")
         plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-        st.pyplot(roc_plot)
+        st.pyplot(confusion_matrix)
 
         st.write("ROC Curve:")
         plot_model(tuned_lightgbm_balanced, plot="auc")
-        st.pyplot(roc_plot)
+        st.pyplot(auc)
         
         # Convert 'Layers' column to integer data type
         df2['Layers'] = df2['Layers'].astype(int)
