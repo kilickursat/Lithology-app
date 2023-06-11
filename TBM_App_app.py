@@ -109,19 +109,24 @@ if "df" in locals():
         st.write("Feature Importance:")
         #fig_feature, ax_feature = plt.subplots()
         fig_feature=plot_model(tuned_lightgbm_balanced, plot="feature")
-        st.pyplot(fig_feature)
-        plt.show()
+        fig_feature.savefig("feature_importance.png")
+        st.image("feature_importance.png")
+        #st.pyplot(fig_feature)
+       
 
         st.write("Confusion Matrix:")
         #fig_matrix, ax_matrix = plt.subplots()
         fig_matrix=plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-        st.pyplot(fig_matrix)
-        plt.show()
-
+        fig_matrix.savefig("confusion_matrix.png")
+        st.image("confusion_matrix.png")
+        #st.pyplot(fig_matrix)
+        
         st.write("ROC Curve:")
         #fig_roc, ax_roc = plt.subplots()
         fig_roc=plot_model(tuned_lightgbm_balanced, plot="auc")
-        st.pyplot(fig_roc)
-        plt.show()
+        fig_roc.savefig("fig_roc.png")
+        st.image("fig_roc.png")
+        #st.pyplot(fig_roc)
+       
 
 
