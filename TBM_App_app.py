@@ -91,7 +91,12 @@ if "df" in locals():
 
         # Visualization
         st.write("Classification report:")
-        plot_model(tuned_lightgbm_balanced, plot="class_report")
+        # Generate classification report
+        classification_report = pull()
+        # Display classification report using plot_model
+        classification_report['model'] = tuned_lightgbm_balanced
+        plot_model(classification_report, plot='class_report')
+        #plot_model(tuned_lightgbm_balanced, plot="class_report")
         st.pyplot(class_report)
         
         st.write("Feature Importance:")
