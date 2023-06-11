@@ -97,8 +97,9 @@ if "df" in locals():
         plot_model(tuned_lightgbm_balanced, plot="auc")
 
         st.write("SHAP Values:")
-        explainer = shap.Explainer(tuned_lightgbm_balanced)
-        shap_values = explainer(df2)
+        explainer = shap.TreeExplainer(tuned_lightgbm_balanced)
+        shap_values = explainer.shap_values(df2)
+        #shap_values = explainer(df2)
         shap.summary_plot(shap_values, df2)
 
         # Save the model as pickle
