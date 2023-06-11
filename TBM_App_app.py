@@ -104,7 +104,7 @@ if "df" in locals():
             st.write(unseen_data.head(10))
 
         # Visualization
-        st.set_option('deprecation.showPyplotGlobalUse', False)
+        st.set_option('deprecation.showPyplotGlobalUse', True)
         st.write("Feature Importance:")
         fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
         st.pyplot(fig_feature)
@@ -114,6 +114,6 @@ if "df" in locals():
         st.pyplot(fig_matrix)
 
         st.write("ROC Curve:")
-        fig_roc = plot_model(tuned_lightgbm_balanced, plot="roc")
+        fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
         st.pyplot(fig_roc)
 
