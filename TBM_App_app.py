@@ -82,8 +82,18 @@ if "df" in locals():
         evaluate_model(lightgbm_balanced)
         
         
+   
         # Model interpretation
-        interpret_model(tuned_lightgbm_balanced)
+    if st.button("Interpret Model"):
+        # Calculate SHAP values
+        explainer = shap.Explainer(tuned_lightgbm_balanced)
+        shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
+
+        # Visualize SHAP summary plot
+        st.write("SHAP Summary Plot:")
+        shap.summary_plot(shap_values, df2)
+
+        #interpret_model(tuned_lightgbm_balanced)
 
         # Prediction on unseen data
         unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
@@ -109,11 +119,11 @@ if "df" in locals():
         #df2['Layers'] = df2['Layers'].astype(int)
 
         # SHAP Values
-        st.write("SHAP Values:")
-        explainer = shap.Explainer(tuned_lightgbm_balanced)
-        shap_values = explainer.shap_values(df2)
-        fig_shap = shap.summary_plot(shap_values, df2, show=False)
-        st.pyplot(fig_shap)
+        #st.write("SHAP Values:")
+        #explainer = shap.Explainer(tuned_lightgbm_balanced)
+        #shap_values = explainer.shap_values(df2)
+        #fig_shap = shap.summary_plot(shap_values, df2, show=False)
+        #st.pyplot(fig_shap)
         
         # Save the model as a joblib file
         model_filename = "trained_model.joblib"
