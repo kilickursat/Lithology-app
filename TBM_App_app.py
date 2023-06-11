@@ -104,7 +104,7 @@ if "df" in locals():
             st.write(unseen_data.head(10))
 
         # Visualization
-        st.set_option('deprecation.showPyplotGlobalUse', True)
+        st.set_option('deprecation.showPyplotGlobalUse', False)
         st.write("Feature Importance:")
         fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
         st.pyplot(fig_feature)
