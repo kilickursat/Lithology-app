@@ -16,6 +16,8 @@ from clover.distribution import DensityDistributor
 from pycaret.classification import *
 import shap
 import io
+import joblib
+
 
 # Set the page title and description
 st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
@@ -114,4 +116,9 @@ if "df" in locals():
     st.write("ROC Curve:")
     fig_roc = plot_model(tuned_lightgbm_balanced, plot="roc")
     st.pyplot(fig_roc)
+    
+    # Save the trained model
+    model_path = 'tuned_lightgbm_balanced.joblib'
+    joblib.dump(tuned_lightgbm_balanced, model_path)
+
 
