@@ -104,10 +104,9 @@ if "df" in locals():
         #shap_values = explainer(df2)
         shap.summary_plot(shap_values, df2)
         
-# Save the model as pickle
-model_filename = "trained_model.pkl"
-with open(model_filename, "wb") as file:
-    pickle.dump(tuned_lightgbm_balanced, file)
+# Save the model as a joblib file
+model_filename = "trained_model.joblib"
+joblib.dump(tuned_lightgbm_balanced, model_filename)
 st.write(f"Trained model saved as {model_filename}")
 
  
