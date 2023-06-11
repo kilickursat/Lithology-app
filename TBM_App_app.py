@@ -85,10 +85,10 @@ if "df" in locals():
     # Model interpretation
     if st.button("Interpret Model"):
         # Get the underlying LightGBM model from the PyCaret pipeline
-        tuned_lightgbm_model = tuned_lightgbm_balanced.get_model('lightgbm')
+        tuned_lightgbm_balanced = tuned_lightgbm_balanced.get_model('lightgbm')
 
         # Calculate SHAP values
-        explainer = shap.Explainer(tuned_lightgbm_model)
+        explainer = shap.Explainer(tuned_lightgbm_balanced)
         shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
 
         # Visualize SHAP summary plot
