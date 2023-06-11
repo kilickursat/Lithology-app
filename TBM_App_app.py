@@ -16,6 +16,7 @@ from clover.distribution import DensityDistributor
 from pycaret.classification import *
 import shap
 import io
+import pickle5 as pickle
 
 # Set the page title and description
 st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
