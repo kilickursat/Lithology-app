@@ -110,15 +110,15 @@ if "df" in locals():
             st.write("Feature Importance:")
             fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
             st.pyplot(fig_feature)
-            fig_feature.savefig("feature_importance.png")
+          
 
             st.write("Confusion Matrix:")
             fig_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
             st.pyplot(fig_matrix)
-            fig_matrix.savefig("confusion_matrix.png")
+           
 
             st.write("ROC Curve:")
             fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
             st.pyplot(fig_roc)
-            fig_roc.savefig("roc_curve.png")
+           
 
