@@ -16,14 +16,11 @@ from clover.distribution import DensityDistributor
 from pycaret.classification import *
 import shap
 import io
-import pickle5 as pickle
-import joblib
 
 # Set the page title and description
 st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
 st.write("This app is to identify a soft ground tunnel lithology based on a TBM's operational parameters")
 st.write("Created by https://github.com/kilickursat")
-
 
 # Data loading options
 data_load_option = st.radio("Data Load Option", ("Online", "Batch"))
@@ -43,12 +40,16 @@ else:
 if "df" in locals():
     # Data preprocessing and sampling
     df2 = df.fillna(0)
-    
 
-    df2 = df2.drop(['RING NU','Altitude','ExcavationD','pitching','rolling','Middle break left and right fold angle (%)','Middle break upper and lower folds (%)',' Geosanth exploration equipment exploration pressure (kN)',
-              'Geoyama Exploration Equipment Exploration Stroke (mm)','Clay shock injection pressure (MPa)','Clay shock flow rateA (L/min)','Clay shock flow rateB (L/min)',
-              'Back injection pressure (MPa)',' Rotation angle (degree)','Bubble injection pressure (MPa)','Back in flow rate of A liquid (L/min)','Back in flow rate of B liquid (L/min)','Excavated Tunnel Length (m)',],axis=1)
-    
+    df2 = df2.drop(['RING NU', 'Altitude', 'ExcavationD', 'pitching', 'rolling',
+                    'Middle break left and right fold angle (%)', 'Middle break upper and lower folds (%)',
+                    ' Geosanth exploration equipment exploration pressure (kN)',
+                    'Geoyama Exploration Equipment Exploration Stroke (mm)',
+                    'Clay shock injection pressure (MPa)', 'Clay shock flow rateA (L/min)',
+                    'Clay shock flow rateB (L/min)', 'Back injection pressure (MPa)', ' Rotation angle (degree)',
+                    'Bubble injection pressure (MPa)', 'Back in flow rate of A liquid (L/min)',
+                    'Back in flow rate of B liquid (L/min)', 'Excavated Tunnel Length (m)'], axis=1)
+
     RANDOM_SEED = 142
 
     @st.cache(allow_output_mutation=True)
@@ -80,15 +81,13 @@ if "df" in locals():
         lightgbm_balanced = create_model('lightgbm', fold=5)
         tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
         evaluate_model(lightgbm_balanced)
-        
-        
-   
+
     # Model interpretation
     if st.button("Interpret Model"):
         # Get the underlying LightGBM model from the PyCaret pipeline
         lightgbm_model = tuned_lightgbm_balanced.get_model('lightgbm')
 
-    # Calculate SHAP values
+        # Calculate SHAP values
         explainer = shap.Explainer(lightgbm_model)
         shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
 
@@ -96,41 +95,23 @@ if "df" in locals():
         st.write("SHAP Summary Plot:")
         shap.summary_plot(shap_values, df2)
 
-        #interpret_model(tuned_lightgbm_balanced)
-
-        # Prediction on unseen data
+    # Prediction on unseen data
+    if st.button("Predict"):
         unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
         st.write("Predicted Data:")
         st.write(unseen_data.head(10))
 
-       
-        # Visualization
-        st.set_option('deprecation.showPyplotGlobalUse', False)
-        st.write("Feature Importance:")
-        fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
-        st.pyplot(fig_feature)
+    # Visualization
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.write("Feature Importance:")
+    fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
+    st.pyplot(fig_feature)
 
-        st.write("Confusion Matrix:")
-        fig_cm = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-        st.pyplot(fig_cm)
+    st.write("Confusion Matrix:")
+    fig_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+    st.pyplot(fig_matrix)
 
-        st.write("ROC Curve:")
-        fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
-        st.pyplot(fig_roc)
-        
-        # Convert 'Layers' column to integer data type
-        #df2['Layers'] = df2['Layers'].astype(int)
+    st.write("ROC Curve:")
+    fig_roc = plot_model(tuned_lightgbm_balanced, plot="roc")
+    st.pyplot(fig_roc)
 
-        # SHAP Values
-        #st.write("SHAP Values:")
-        #explainer = shap.Explainer(tuned_lightgbm_balanced)
-        #shap_values = explainer.shap_values(df2)
-        #fig_shap = shap.summary_plot(shap_values, df2, show=False)
-        #st.pyplot(fig_shap)
-        
-        # Save the model as a joblib file
-        model_filename = "trained_model.joblib"
-        joblib.dump(tuned_lightgbm_balanced, model_filename)
-        st.write(f"Trained model saved as {model_filename}")
-
- 
