@@ -17,6 +17,7 @@ from pycaret.classification import *
 import shap
 import io
 import joblib
+import matplotlib.pyplot as plt
 
 # Set the page title and description
 st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
