@@ -42,14 +42,10 @@ else:
 if "df" in locals():
     # Data preprocessing and sampling
     df2 = df.fillna(0)
-    df2 = df2.drop(['RING NU', 'Altitude', 'ExcavationD', 'pitching', 'rolling',
-                    'Middle break left and right fold angle (%)', 'Middle break upper and lower folds (%)',
-                    'Geosanth exploration equipment exploration pressure (kN)',
-                    'Geoyama Exploration Equipment Exploration Stroke (mm)', 'Clay shock injection pressure (MPa)',
-                    'Clay shock flow rateA (L/min)', 'Clay shock flow rateB (L/min)', 'Back injection pressure (MPa)',
-                    'Rotation angle (degree)', 'Bubble injection pressure (MPa)',
-                    'Back in flow rate of A liquid (L/min)', 'Back in flow rate of B liquid (L/min)',
-                    'Excavated Tunnel Length (m)'], axis=1)
+
+    df2 = df2.drop(['RING NU','Altitude','ExcavationD','pitching','rolling','Middle break left and right fold angle (%)','Middle break upper and lower folds (%)',' Geosanth exploration equipment exploration pressure (kN)',
+              'Geoyama Exploration Equipment Exploration Stroke (mm)','Clay shock injection pressure (MPa)','Clay shock flow rateA (L/min)','Clay shock flow rateB (L/min)',
+              'Back injection pressure (MPa)',' Rotation angle (degree)','Bubble injection pressure (MPa)','Back in flow rate of A liquid (L/min)','Back in flow rate of B liquid (L/min)','Excavated Tunnel Length (m)',],axis=1)
 
     RANDOM_SEED = 142
 
