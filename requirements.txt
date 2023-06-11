@@ -1,9 +1,10 @@
-!pip install streamlit
-!pip install pandas
-!pip install scikit-learn
-!pip install imbalanced-learn
-!pip install pycaret
-!pip install clover
-!pip install shap
-!pip install -U cluster-over-sampling
-!pip install --upgrade clover
+imbalanced-learn == 0.10.1
+pycaret == 3.0.2
+cluster-over-sampling == 0.5.0
+clover == 0.2.2
+shap == 0.41.0
+streamlit == 1.23.1
+pandas == 1.2.3
+numpy == 1.20.2
+scikit-learn == 0.24.1
+matplotlib == 3.3.4
