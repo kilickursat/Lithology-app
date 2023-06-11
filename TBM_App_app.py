@@ -105,9 +105,9 @@ if "df" in locals():
         #shap_values = explainer(df2)
         shap.summary_plot(shap_values, df2)
         
-# Save the model as a joblib file
-model_filename = "trained_model.joblib"
-joblib.dump(tuned_lightgbm_balanced, model_filename)
-st.write(f"Trained model saved as {model_filename}")
+        # Save the model as a joblib file
+        model_filename = "trained_model.joblib"
+        joblib.dump(tuned_lightgbm_balanced, model_filename)
+        st.write(f"Trained model saved as {model_filename}")
 
  
