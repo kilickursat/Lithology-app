@@ -89,29 +89,30 @@ if "df" in locals():
         st.write("Predicted Data:")
         st.write(unseen_data.head(10))
 
+       
         # Visualization
-        
-        
+        st.set_option('deprecation.showPyplotGlobalUse', False)
         st.write("Feature Importance:")
-        fig_feature=plot_model(tuned_lightgbm_balanced, plot="feature")
+        fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
         st.pyplot(fig_feature)
 
         st.write("Confusion Matrix:")
-        fig_cm=plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        fig_cm = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
         st.pyplot(fig_cm)
 
         st.write("ROC Curve:")
-        fig_auc=plot_model(tuned_lightgbm_balanced, plot="auc")
-        st.pyplot(fig_auc)
+        fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
+        st.pyplot(fig_roc)
         
         # Convert 'Layers' column to integer data type
         df2['Layers'] = df2['Layers'].astype(int)
 
+        # SHAP Values
         st.write("SHAP Values:")
-        explainer = shap.TreeExplainer(tuned_lightgbm_balanced)
+        explainer = shap.Explainer(tuned_lightgbm_balanced)
         shap_values = explainer.shap_values(df2)
-        #shap_values = explainer(df2)
-        shap.summary_plot(shap_values, df2)
+        fig_shap = shap.summary_plot(shap_values, df2, show=False)
+        st.pyplot(fig_shap)
         
         # Save the model as a joblib file
         model_filename = "trained_model.joblib"
