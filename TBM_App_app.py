@@ -91,7 +91,7 @@ if "df" in locals():
         # Model interpretation
         if st.button("Interpret Model"):
             # Calculate SHAP values
-            explainer = shap.Explainer(tuned_lightgbm_balanced)
+            explainer = shap.TreeExplainer(tuned_lightgbm_balanced)
             shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
 
             # Visualize SHAP summary plot
@@ -104,22 +104,16 @@ if "df" in locals():
             st.write("Predicted Data:")
             st.write(unseen_data.head(10))
 
-
     # Visualization
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.write("Feature Importance:")
     fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
-    #st.pyplot(fig_feature)
-    plt.show(fig_feature)   
+    st.pyplot(fig_feature)
 
     st.write("Confusion Matrix:")
     fig_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-    #st.pyplot(fig_matrix)
-    plt.show(fig_matrix)
-           
+    st.pyplot(fig_matrix)
+
     st.write("ROC Curve:")
     fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
-    #st.pyplot(fig_roc)
-    plt.show(fig_roc)
-           
-
+    st.pyplot(fig_roc)
