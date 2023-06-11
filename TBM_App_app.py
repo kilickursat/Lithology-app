@@ -44,13 +44,6 @@ if "df" in locals():
     # Data preprocessing and sampling
     df2 = df.fillna(0)
     
-            # Check if 'Layers' column contains valid integer values
-    if df2['Layers'].dtype != int:
-        try:
-            df2['Layers'] = df2['Layers'].astype(int)
-        except ValueError:
-            st.write("Invalid values found in the 'Layers' column. Please ensure it contains valid integers.")
-            st.stop()
 
     df2 = df2.drop(['RING NU','Altitude','ExcavationD','pitching','rolling','Middle break left and right fold angle (%)','Middle break upper and lower folds (%)',' Geosanth exploration equipment exploration pressure (kN)',
               'Geoyama Exploration Equipment Exploration Stroke (mm)','Clay shock injection pressure (MPa)','Clay shock flow rateA (L/min)','Clay shock flow rateB (L/min)',
