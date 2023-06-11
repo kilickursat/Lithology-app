@@ -17,10 +17,11 @@ from pycaret.classification import *
 import shap
 import io
 
-
 # Set the page title and description
-st.title("Machine Learning Web App")
-st.write("This is a web application for your machine learning model.")
+st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
+st.write("This app is to identify a soft ground tunnel lithology based on a TBM's operational parameters")
+st.write("Created by https://github.com/kilickursat")
+
 
 # Data loading options
 data_load_option = st.radio("Data Load Option", ("Online", "Batch"))
@@ -101,11 +102,11 @@ if "df" in locals():
         shap_values = explainer.shap_values(df2)
         #shap_values = explainer(df2)
         shap.summary_plot(shap_values, df2)
-
-        # Save the model as pickle
-        model_filename = "trained_model.pkl"
-        with open(model_filename, "wb") as file:
-            pickle.dump(tuned_lightgbm_balanced, file)
-        st.write(f"Trained model saved as {model_filename}")
+        
+# Save the model as pickle
+model_filename = "trained_model.pkl"
+with open(model_filename, "wb") as file:
+    pickle.dump(tuned_lightgbm_balanced, file)
+st.write(f"Trained model saved as {model_filename}")
 
  
