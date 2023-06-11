@@ -18,7 +18,6 @@ import shap
 import io
 import joblib
 
-
 # Set the page title and description
 st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
 st.write("This app is to identify a soft ground tunnel lithology based on a TBM's operational parameters")
@@ -82,43 +81,39 @@ if "df" in locals():
         best_model1 = compare_models(sort="F1")
         lightgbm_balanced = create_model('lightgbm', fold=5)
         tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
-        evaluate_model(tuned_lightgbm_balanced)
+        evaluate_model(lightgbm_balanced)
 
-    # Model interpretation
-    if st.button("Interpret Model"):
-        # Get the underlying LightGBM model from the PyCaret pipeline
-        tuned_lightgbm_balanced = tuned_lightgbm_balanced.get_model('lightgbm')
+        # Save the trained model
+        model_path = 'tuned_lightgbm_balanced.joblib'
+        joblib.dump(tuned_lightgbm_balanced, model_path)
 
-        # Calculate SHAP values
-        explainer = shap.Explainer(tuned_lightgbm_balanced)
-        shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
+        # Model interpretation
+        if st.button("Interpret Model"):
+            # Calculate SHAP values
+            explainer = shap.Explainer(tuned_lightgbm_balanced)
+            shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
 
-        # Visualize SHAP summary plot
-        st.write("SHAP Summary Plot:")
-        shap.summary_plot(shap_values, df2)
+            # Visualize SHAP summary plot
+            st.write("SHAP Summary Plot:")
+            shap.summary_plot(shap_values, df2)
 
-    # Prediction on unseen data
-    if st.button("Predict"):
-        unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
-        st.write("Predicted Data:")
-        st.write(unseen_data.head(10))
+        # Prediction on unseen data
+        if st.button("Predict"):
+            unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
+            st.write("Predicted Data:")
+            st.write(unseen_data.head(10))
 
-    # Visualization
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.write("Feature Importance:")
-    fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
-    st.pyplot(fig_feature)
+        # Visualization
+        st.set_option('deprecation.showPyplotGlobalUse', False)
+        st.write("Feature Importance:")
+        fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
+        st.pyplot(fig_feature)
 
-    st.write("Confusion Matrix:")
-    fig_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-    st.pyplot(fig_matrix)
+        st.write("Confusion Matrix:")
+        fig_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        st.pyplot(fig_matrix)
 
-    st.write("ROC Curve:")
-    fig_roc = plot_model(tuned_lightgbm_balanced, plot="roc")
-    st.pyplot(fig_roc)
-    
-    # Save the trained model
-    model_path = 'tuned_lightgbm_balanced.joblib'
-    joblib.dump(tuned_lightgbm_balanced, model_path)
-
+        st.write("ROC Curve:")
+        fig_roc = plot_model(tuned_lightgbm_balanced, plot="roc")
+        st.pyplot(fig_roc)
 
