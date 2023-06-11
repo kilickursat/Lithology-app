@@ -1,14 +1,3 @@
-pip install streamlit
-pip install pandas
-pip install scikit-learn
-pip install imbalanced-learn
-pip install pycaret
-pip install clover
-pip install shap
-pip install -U cluster-over-sampling
-pip install --upgrade clover
-
-
 import streamlit as st
 import pandas as pd
 from sklearn.cluster import KMeans
