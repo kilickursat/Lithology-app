@@ -92,14 +92,28 @@ if "df" in locals():
         st.write(unseen_data.head(10))
 
         # Visualization
+        #st.write("Feature Importance:")
+        #plot_model(tuned_lightgbm_balanced, plot="feature")
+
+        #st.write("Confusion Matrix:")
+        #plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+
+        #st.write("ROC Curve:")
+        #plot_model(tuned_lightgbm_balanced, plot="auc")
+        
+        # Visualization
         st.write("Feature Importance:")
-        plot_model(tuned_lightgbm_balanced, plot="feature")
+        fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature", show=False)
+        st.pyplot(fig_feature)
 
         st.write("Confusion Matrix:")
-        plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        fig_confusion_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix", show=False)
+        st.pyplot(fig_confusion_matrix)
 
         st.write("ROC Curve:")
-        plot_model(tuned_lightgbm_balanced, plot="auc")
+        fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc", show=False)
+        st.pyplot(fig_roc)
+
 
         #st.write("SHAP Values:")
         #df2 = df2.astype(np.float32)
