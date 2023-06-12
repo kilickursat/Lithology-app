@@ -101,6 +101,7 @@ if "df" in locals():
         plot_model(tuned_lightgbm_balanced, plot="auc")
 
         st.write("SHAP Values:")
+        df2 = df2.astype(np.float32)
         explainer = shap.Explainer(tuned_lightgbm_balanced)
         shap_values = explainer(df2)
         shap.summary_plot(shap_values, df2)
