@@ -105,15 +105,16 @@ if "df" in locals():
             st.write(unseen_data.head(10))
 
     # Visualization
-    st.set_option('deprecation.showPyplotGlobalUse', False)
+    #st.set_option('deprecation.showPyplotGlobalUse', False)
     st.write("Feature Importance:")
     fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
-    st.pyplot(fig_feature)
+    st.pyplot(fig_feature.figure)
 
     st.write("Confusion Matrix:")
     fig_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-    st.pyplot(fig_matrix)
+    st.pyplot(fig_matrix.figure)
+
 
     st.write("ROC Curve:")
     fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
-    st.pyplot(fig_roc)
+    st.pyplot(fig_roc.figure)
