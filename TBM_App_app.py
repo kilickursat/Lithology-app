@@ -101,55 +101,14 @@ if "df" in locals():
         st.write("ROC Curve:")
         plot_model(tuned_lightgbm_balanced, plot="auc")
 
-        st.write("SHAP Values:")
-        df2 = df2.astype(np.float32)
-        explainer = shap.Explainer(tuned_lightgbm_balanced)
-        shap_values = explainer(df2)
-        shap.summary_plot(shap_values, df2)
+        #st.write("SHAP Values:")
+        #df2 = df2.astype(np.float32)
+        #explainer = shap.Explainer(tuned_lightgbm_balanced)
+        #shap_values = explainer(df2)
+        #shap.summary_plot(shap_values, df2)
 
         # Save the model as pickle
         model_filename = "trained_model.pkl"
         with open(model_filename, "wb") as file:
             pickle.dump(tuned_lightgbm_balanced, file)
         st.write(f"Trained model saved as {model_filename}")
-
-        
-"""        
-        # Visualization
-#st.set_option('deprecation.showPyplotGlobalUse', False)
-st.write("Feature Importance:")
-plot_model(tuned_lightgbm_balanced , plot="feature")
-st.pyplot()
-#plt.show()
-
-st.write("Confusion Matrix:")
-plot_model(tuned_lightgbm_balanced , plot="confusion_matrix")
-st.pyplot()
-#plt.show()
-
-st.write("ROC Curve:")
-plot_model(tuned_lightgbm_balanced , plot="auc")
-st.pyplot()
-#plt.show()
-        
-evaluate_model(tuned_lightgbm_balanced)
-        
-# Save the trained model
-model_path = 'tuned_lightgbm_balanced.joblib'
-joblib.dump(tuned_lightgbm_balanced, model_path)
-        
-        # Model interpretation
-if st.button("Interpret Model"):
-    # Calculate SHAP values
-    explainer = shap.TreeExplainer(tuned_lightgbm_balanced)
-    shap_values = explainer.shap_values(df2.astype(float))  # Convert data types to float
-        # Visualize SHAP summary plot
-    st.write("SHAP Summary Plot:")
-    shap.summary_plot(shap_values, df2)
-
-     # Prediction on unseen data
-if st.button("Predict"):
-    unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
-    st.write("Predicted Data:")
-    st.write(unseen_data.head(10))
-"""
