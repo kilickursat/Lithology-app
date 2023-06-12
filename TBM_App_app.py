@@ -103,15 +103,18 @@ if "df" in locals():
         
         # Visualization
         st.write("Feature Importance:")
-        fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature", show=False)
+        fig_feature = plot_model(tuned_lightgbm_balanced, plot="feature")
+        plt.show(fig_feature)
         st.pyplot(fig_feature)
 
         st.write("Confusion Matrix:")
-        fig_confusion_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix", show=False)
+        fig_confusion_matrix = plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        plt.show(fig_confusion_matrix)
         st.pyplot(fig_confusion_matrix)
 
         st.write("ROC Curve:")
-        fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc", show=False)
+        fig_roc = plot_model(tuned_lightgbm_balanced, plot="auc")
+        plt.show(fig_roc)
         st.pyplot(fig_roc)
 
 
