@@ -82,34 +82,32 @@ if "df" in locals():
         st.write(f"There are {data_unseen.shape[0]} samples for Unseen Data.")
 
     # Model training and evaluation
-    if st.button("Train Model"):
-        clovrs = ClusterOverSampler(oversampler=SMOTE(random_state=1),
-                                    clusterer=KMeans(random_state=2),
-                                    distributor=DensityDistributor(), random_state=3)
-        session_2 = setup(df2, target='Layers', session_id=177, log_experiment=False,
-                          experiment_name='lithologies2', normalize=True, normalize_method='minmax',
-                          transformation=True, transformation_method='quantile', fix_imbalance=True,
-                          fix_imbalance_method=clovrs, remove_multicollinearity=True, multicollinearity_threshold=0.6)
-        best_model1 = compare_models(sort="F1")
-        lightgbm_balanced = create_model('lightgbm', fold=5)
-        tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
+if st.button("Train Model"):
+    clovrs = ClusterOverSampler(oversampler=SMOTE(random_state=1),
+                                clusterer=KMeans(random_state=2),
+                                distributor=DensityDistributor(), random_state=3)
+    session_2 = setup(df2, target='Layers', session_id=177, log_experiment=False,
+                      experiment_name='lithologies2', normalize=True, normalize_method='minmax',
+                      transformation=True, transformation_method='quantile', fix_imbalance=True,
+                      fix_imbalance_method=clovrs, remove_multicollinearity=True, multicollinearity_threshold=0.6)
+    best_model1 = compare_models(sort="F1")
+    lightgbm_balanced = create_model('lightgbm', fold=5)
+    tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
                 # Model interpretation
-        interpret_model(tuned_lightgbm_balanced)
-
-        # Prediction on unseen data
-        unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
-        st.write("Predicted Data:")
-        st.write(unseen_data.head(10))
-
-        # Visualization
-        st.write("Feature Importance:")
-        plot_model(tuned_lightgbm_balanced, plot="feature")
-
-        st.write("Confusion Matrix:")
-        plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-
-        st.write("ROC Curve:")
-        plot_model(tuned_lightgbm_balanced, plot="auc")
+    interpret_model(tuned_lightgbm_balanced)
+    # Prediction on unseen data
+    unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
+    st.write("Predicted Data:")
+    st.write(unseen_data.head(10))
+    # Visualization
+    st.write("Feature Importance:")
+    plot_model(tuned_lightgbm_balanced, plot="feature")
+    
+    st.write("Confusion Matrix:")
+    plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+    
+    st.write("ROC Curve:")
+    plot_model(tuned_lightgbm_balanced, plot="auc")
         
 
 
