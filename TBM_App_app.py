@@ -108,12 +108,15 @@ if "df" in locals():
         #st.set_option('deprecation.showPyplotGlobalUse', False)
         st.write("Feature Importance:")
         plot_model(tuned_lightgbm_balanced, plot="feature")
+        st.pyplot()
         plt.show()
 
         st.write("Confusion Matrix:")
         plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        st.pyplot()
         plt.show()
 
         st.write("ROC Curve:")
         plot_model(tuned_lightgbm_balanced, plot="auc")
+        st.pyplot()
         plt.show()
