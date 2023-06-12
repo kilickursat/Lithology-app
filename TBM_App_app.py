@@ -24,6 +24,8 @@ import numpy as np
 st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
 st.write("This app is to identify a soft ground tunnel lithology based on a TBM's operational parameters")
 st.write("Created by https://github.com/kilickursat")
+#set a subheader
+
 
 # Data loading options
 data_load_option = st.radio("Data Load Option", ("Online", "Batch"))
@@ -39,6 +41,14 @@ else:
     uploaded_file = st.file_uploader("classification_model.xlsx", type="xlsx")
     if uploaded_file is not None:
         df = pd.read_excel(uploaded_file)
+        st.subheader("Data Information")
+
+
+        #show the data as a table
+        st.dataframe(df)
+
+        #Show statistics on the data
+        st.write(df.describe())
 
 if "df" in locals():
     # Data preprocessing and sampling
