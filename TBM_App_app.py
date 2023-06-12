@@ -82,15 +82,9 @@ if "df" in locals():
         best_model1 = compare_models(sort="F1")
         lightgbm_balanced = create_model('lightgbm', fold=5)
         tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
-        evaluate_model(tuned_lightgbm_balanced)
-        
-                # Save the trained model
-        model_path = 'tuned_lightgbm_balanced.joblib'
-        joblib.dump(tuned_lightgbm_balanced, model_path)
-        
-        
-    # Visualization
-    #st.set_option('deprecation.showPyplotGlobalUse', False)
+                
+        # Visualization
+        #st.set_option('deprecation.showPyplotGlobalUse', False)
         st.write("Feature Importance:")
         plot_model(tuned_lightgbm_balanced, plot="feature")
         st.pyplot()
@@ -105,11 +99,13 @@ if "df" in locals():
         plot_model(tuned_lightgbm_balanced, plot="auc")
         st.pyplot()
         plt.show()
-
+        
+        evaluate_model(tuned_lightgbm_balanced)
+        
         # Save the trained model
         model_path = 'tuned_lightgbm_balanced.joblib'
         joblib.dump(tuned_lightgbm_balanced, model_path)
-
+        
         # Model interpretation
     if st.button("Interpret Model"):
         # Calculate SHAP values
