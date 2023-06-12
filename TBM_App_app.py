@@ -82,7 +82,7 @@ if "df" in locals():
         best_model1 = compare_models(sort="F1")
         lightgbm_balanced = create_model('lightgbm', fold=5)
         tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
-        evaluate_model(lightgbm_balanced)
+        evaluate_model(tuned_lightgbm_balanced)
 
         # Save the trained model
         model_path = 'tuned_lightgbm_balanced.joblib'
@@ -104,16 +104,16 @@ if "df" in locals():
             st.write("Predicted Data:")
             st.write(unseen_data.head(10))
 
-    # Visualization
-    #st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.write("Feature Importance:")
-    plot_model(tuned_lightgbm_balanced, plot="feature")
-    
+        # Visualization
+        #st.set_option('deprecation.showPyplotGlobalUse', False)
+        st.write("Feature Importance:")
+        plot_model(tuned_lightgbm_balanced, plot="feature")
+        plt.show()
 
-    st.write("Confusion Matrix:")
-    plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
-    
+        st.write("Confusion Matrix:")
+        plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+        plt.show()
 
-    st.write("ROC Curve:")
-    plot_model(tuned_lightgbm_balanced, plot="auc")
-    
+        st.write("ROC Curve:")
+        plot_model(tuned_lightgbm_balanced, plot="auc")
+        plt.show()
