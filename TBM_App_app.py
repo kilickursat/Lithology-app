@@ -84,27 +84,27 @@ if "df" in locals():
         tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
                 
         # Visualization
-        #st.set_option('deprecation.showPyplotGlobalUse', False)
-        st.write("Feature Importance:")
-        plot_model(model_path, plot="feature")
-        st.pyplot()
-        #plt.show()
+#st.set_option('deprecation.showPyplotGlobalUse', False)
+st.write("Feature Importance:")
+plot_model(tuned_lightgbm_balanced , plot="feature")
+st.pyplot()
+#plt.show()
 
-        st.write("Confusion Matrix:")
-        plot_model(model_path, plot="confusion_matrix")
-        st.pyplot()
-        #plt.show()
+st.write("Confusion Matrix:")
+plot_model(tuned_lightgbm_balanced , plot="confusion_matrix")
+st.pyplot()
+#plt.show()
 
-        st.write("ROC Curve:")
-        plot_model(model_path, plot="auc")
-        st.pyplot()
-        #plt.show()
+st.write("ROC Curve:")
+plot_model(tuned_lightgbm_balanced , plot="auc")
+st.pyplot()
+#plt.show()
         
-        evaluate_model(tuned_lightgbm_balanced)
+evaluate_model(tuned_lightgbm_balanced)
         
-        # Save the trained model
-        model_path = 'tuned_lightgbm_balanced.joblib'
-        joblib.dump(tuned_lightgbm_balanced, model_path)
+# Save the trained model
+model_path = 'tuned_lightgbm_balanced.joblib'
+joblib.dump(tuned_lightgbm_balanced, model_path)
         
         # Model interpretation
 if st.button("Interpret Model"):
