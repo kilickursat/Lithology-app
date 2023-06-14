@@ -92,28 +92,28 @@ def run():
         output_dict = {'VCS': 0, 'VG': 1,'VSG': 2 }
         output_df = pd.DataFrame([output_dict])
         
-if st.button("Train Model"):
-        # Prediction on unseen data
-        unseen_data = predict_model(model, data=df2)
-        st.write("Predicted Data:")
-        st.write(unseen_data.head(10))
-
-        # Visualization
-        st.write("Feature Importance:")
-        plot_model(model, plot="feature", display_format="streamlit")
-    
-        st.write("Confusion Matrix:")
-        plot_model(tmodel, plot="confusion_matrix",display_format="streamlit")
-    
-        st.write("ROC Curve:")
-        plot_model(model, plot="auc",display_format="streamlit")
+        if st.button("Train Model"):
+            # Prediction on unseen data
+            unseen_data = predict_model(model, data=df2)
+            st.write("Predicted Data:")
+            st.write(unseen_data.head(10))
+            
+            # Visualization
+            st.write("Feature Importance:")
+            plot_model(model, plot="feature", display_format="streamlit")
+            
+            st.write("Confusion Matrix:")
+            plot_model(tmodel, plot="confusion_matrix",display_format="streamlit")
+            
+            st.write("ROC Curve:")
+            plot_model(model, plot="auc",display_format="streamlit")
         
 
-# Explaining the model's predictions using SHAP values
-# https://github.com/slundberg/shap
-if st.button("Interpretation"):
-        explainer = shap.TreeExplainer(model)
-        shap_values = explainer.shap_values(df2)
+           # Explaining the model's predictions using SHAP values
+           # https://github.com/slundberg/shap
+        if st.button("Interpretation"):
+            explainer = shap.TreeExplainer(model)
+            shap_values = explainer.shap_values(df2)
 
 
 
