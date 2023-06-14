@@ -74,18 +74,18 @@ def run():
 
       st.success('The output is {}'.format(output))
               # Feature Importance
-      st.subheader("Feature Importance")
-      plot_model(model, plot="feature")
-      st.pyplot()
+      #st.subheader("Feature Importance")
+      #plot_model(model, plot="feature")
+      #st.pyplot()
 
         # Confusion Matrix
       st.subheader("Confusion Matrix")
-      plot_model(model, plot="confusion_matrix")
+      plot_model(model, plot="confusion_matrix", display_format="stremalit")
       st.pyplot()
 
         # ROC Curve
       st.subheader("ROC Curve")
-      plot_model(model, plot="auc")
+      plot_model(model, plot="auc",display_format="stremalit")
       st.pyplot()
     
     if add_selectbox == 'Batch':
