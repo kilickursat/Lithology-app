@@ -93,23 +93,28 @@ def run():
             output_df = pd.DataFrame([output_dict])
 
     
-st.write(unseen_data.head(10))
+
+        # Prediction on unseen data
+        unseen_data = predict_model(model, data=df2)
+        st.write("Predicted Data:")
+        st.write(unseen_data.head(10))
+
     
-# Visualization
-st.write("Feature Importance:")
-plot_model(model, plot="feature", display_format="stremalit")
+        # Visualization
+        st.write("Feature Importance:")
+        plot_model(model, plot="feature", display_format="stremalit")
     
-st.write("Confusion Matrix:")
-plot_model(tmodel, plot="confusion_matrix",display_format="stremalit")
+        st.write("Confusion Matrix:")
+        plot_model(tmodel, plot="confusion_matrix",display_format="stremalit")
     
-st.write("ROC Curve:")
-plot_model(model, plot="auc",display_format="stremalit")
+        st.write("ROC Curve:")
+        plot_model(model, plot="auc",display_format="stremalit")
         
 
 # Explaining the model's predictions using SHAP values
 # https://github.com/slundberg/shap
-explainer = shap.TreeExplainer(model)
-shap_values = explainer.shap_values(df2)
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(df2)
 
         #st.write("SHAP Values:")
         #df2 = df2.astype(np.float32)
