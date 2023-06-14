@@ -28,6 +28,8 @@ st.write("This app is to identify a soft ground tunnel lithology based on a TBM'
 st.write("Created by https://github.com/kilickursat")
 #set a subheader
 
+model = load_model('layers-pipeline')
+
 
 # Data loading options
 data_load_option = st.radio("Data Load Option", ("Online", "Batch"))
@@ -51,7 +53,7 @@ else:
 
         #Show statistics on the data
         st.write(df.describe())
-
+"""
 if "df" in locals():
     # Data preprocessing and sampling
     df2 = df.fillna(0)
@@ -101,24 +103,24 @@ interpret_model(tuned_lightgbm_balanced)
     
     # Prediction on unseen data
 unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
-    
+"""    
 st.write("Predicted Data:")
 st.write(unseen_data.head(10))
     
 # Visualization
 st.write("Feature Importance:")
-plot_model(tuned_lightgbm_balanced, plot="feature")
+plot_model(model, plot="feature")
     
 st.write("Confusion Matrix:")
-plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+plot_model(tmodel, plot="confusion_matrix")
     
 st.write("ROC Curve:")
-plot_model(tuned_lightgbm_balanced, plot="auc")
+plot_model(model, plot="auc")
         
 
 # Explaining the model's predictions using SHAP values
 # https://github.com/slundberg/shap
-explainer = shap.TreeExplainer(tuned_lightgbm_balanced)
+explainer = shap.TreeExplainer(model)
 shap_values = explainer.shap_values(df2)
 
         #st.write("SHAP Values:")
