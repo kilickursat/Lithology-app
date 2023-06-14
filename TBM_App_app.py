@@ -92,8 +92,7 @@ def run():
             output_dict = {'VCS': 0, 'VG': 1,'VSG': 2 }
             output_df = pd.DataFrame([output_dict])
 
-    
-
+       if st.button("Train Model"):
         # Prediction on unseen data
         unseen_data = predict_model(model, data=df2)
         st.write("Predicted Data:")
