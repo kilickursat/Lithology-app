@@ -50,7 +50,7 @@ def run():
         
       output = ""
 
-      output_dict = {'VCS': vcs_value, 'VSG': vsg_value, 'VG': vg_value}
+      output_dict = {'VCS': VCS, 'VSG': VSG, 'VG': VG}
       output_df = pd.DataFrame([output_dict])
 
 
