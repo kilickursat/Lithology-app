@@ -97,13 +97,13 @@ st.write(unseen_data.head(10))
     
 # Visualization
 st.write("Feature Importance:")
-plot_model(model, plot="feature")
+plot_model(model, plot="feature", display_format="stremalit")
     
 st.write("Confusion Matrix:")
-plot_model(tmodel, plot="confusion_matrix")
+plot_model(tmodel, plot="confusion_matrix",display_format="stremalit")
     
 st.write("ROC Curve:")
-plot_model(model, plot="auc")
+plot_model(model, plot="auc",display_format="stremalit")
         
 
 # Explaining the model's predictions using SHAP values
