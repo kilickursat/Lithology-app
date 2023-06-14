@@ -59,7 +59,21 @@ def run():
             output = '$' + str(output)
 
       st.success('The output is {}'.format(output))
+              # Feature Importance
+      st.subheader("Feature Importance")
+      plot_model(model, plot="feature")
+      st.pyplot()
 
+        # Confusion Matrix
+      st.subheader("Confusion Matrix")
+      plot_model(model, plot="confusion_matrix")
+      st.pyplot()
+
+        # ROC Curve
+      st.subheader("ROC Curve")
+      plot_model(model, plot="auc")
+      st.pyplot()
+    
     if add_selectbox == 'Batch':
 
         file_upload = st.file_uploader("Upload csv file for predictions", type=["csv","xlsx"])
