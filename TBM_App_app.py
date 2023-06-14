@@ -53,58 +53,46 @@ else:
 
         #Show statistics on the data
         st.write(df.describe())
-"""
-if "df" in locals():
-    # Data preprocessing and sampling
-    df2 = df.fillna(0)
 
-    df2 = df2.drop(['RING NU', 'Altitude', 'ExcavationD', 'pitching', 'rolling',
-                    'Middle break left and right fold angle (%)', 'Middle break upper and lower folds (%)',
-                    ' Geosanth exploration equipment exploration pressure (kN)',
-                    'Geoyama Exploration Equipment Exploration Stroke (mm)',
-                    'Clay shock injection pressure (MPa)', 'Clay shock flow rateA (L/min)',
-                    'Clay shock flow rateB (L/min)', 'Back injection pressure (MPa)', ' Rotation angle (degree)',
-                    'Bubble injection pressure (MPa)', 'Back in flow rate of A liquid (L/min)',
-                    'Back in flow rate of B liquid (L/min)', 'Excavated Tunnel Length (m)'], axis=1)
+        
+def run():
+    add_selectbox = st.sidebar.selectbox(
+    "How would you like to predict?",
+    ("Online", "Batch"))
 
-    RANDOM_SEED = 142
-
-    @st.cache(allow_output_mutation=True)
-    def data_sampling(dataset, frac: float, random_seed: int):
-        data_sampled_a = dataset.sample(frac=frac, random_state=random_seed)
-        data_sampled_b = dataset.drop(data_sampled_a.index).reset_index(drop=True)
-        data_sampled_a.reset_index(drop=True, inplace=True)
-        return data_sampled_a, data_sampled_b
-
-    # Add data sampling options
-    frac = st.slider("Data Sampling Fraction", 0.0, 1.0, 0.9, 0.1)
-    random_seed = st.number_input("Random Seed", value=142)
-
-    # Add data sampling button
-    if st.button("Sample Data"):
-        df2, data_unseen = data_sampling(df2, frac, random_seed)
-        st.write(f"There are {data_unseen.shape[0]} samples for Unseen Data.")
-
-    # Model training and evaluation
-if st.button("Train Model"):
-    clovrs = ClusterOverSampler(oversampler=SMOTE(random_state=1),
-                                clusterer=KMeans(random_state=2),
-                                distributor=DensityDistributor(), random_state=3)
-    session_2 = setup(df2, target='Layers', session_id=177, log_experiment=False,
-                      experiment_name='lithologies2', normalize=True, normalize_method='minmax',
-                      transformation=True, transformation_method='quantile', fix_imbalance=True,
-                      fix_imbalance_method=clovrs, remove_multicollinearity=True, multicollinearity_threshold=0.6)
+    st.sidebar.info('This app is created to classify a soft ground tunnel lithology')
+    #st.sidebar.success('https://www.pycaret.org')
     
-best_model1 = compare_models(sort="F1")
-lightgbm_balanced = create_model('lightgbm', fold=5)
-tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
-    # Model interpretation
-interpret_model(tuned_lightgbm_balanced)
+    #st.sidebar.image(image_hospital)
+
+    #st.title("Insurance Charges Prediction App")
     
-    # Prediction on unseen data
-unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
-"""    
-st.write("Predicted Data:")
+        if add_selectbox == 'Online':
+            pressure_gauge1 = st.number_input('Pressure gauge 1 (kPa)', min_value=0, value=0)
+            pressure_gauge2 = st.number_input('Pressure gauge 2 (kPa)', min_value=0, value=0)
+            pressure_gauge3 = st.number_input('Pressure gauge 3 (kPa)', min_value=0, value=0)
+            pressure_gauge4 = st.number_input('Pressure gauge 4 (kPa)', min_value=0, value=0)
+            digging_velocity_left = st.number_input('Digging velocity left (mm/min)', min_value=0, value=0)
+            digging_velocity_right = st.number_input('Digging velocity right (mm/min)', min_value=0, value=0)
+            shield_jack_stroke_left = st.number_input('Shield jack stroke left (mm)', min_value=0, value=0)
+            shield_jack_stroke_right = st.number_input('Shield jack stroke right (mm)', min_value=0, value=0)
+            propulsion_pressure = st.number_input('Propulsion pressure (MPa)', min_value=0, value=0)
+            total_thrust = st.number_input('Total thrust (kN)', min_value=0, value=0)
+            cutter_torque = st.number_input('Cutter torque (kNm)', min_value=0, value=0)
+            cutterhead_rotation_speed = st.number_input('Cutterhead rotation speed (rpm)', min_value=0, value=0)
+            screw_pressure = st.number_input('Screw pressure (MPa)', min_value=0, value=0)
+            screw_rotation_speed = st.number_input('Screw rotation speed (rpm)', min_value=0, value=0)
+            gate_opening = st.number_input('Gate opening (%)', min_value=0, max_value=100, value=0)
+            mud_injection_pressure = st.number_input('Mud injection pressure (MPa)', min_value=0, value=0)
+            add_mud_flow = st.number_input('Add mud flow (L/min)', min_value=0, value=0)
+            back_in_injection_rate = st.number_input('Back in injection rate (%)', min_value=0, max_value=100, value=0)
+        
+            output = ""
+
+            output_dict = {'VCS': 0, 'VG': 1,'VSG': 2 }
+            output_df = pd.DataFrame([output_dict])
+
+    
 st.write(unseen_data.head(10))
     
 # Visualization
