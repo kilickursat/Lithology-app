@@ -19,6 +19,8 @@ import io
 import joblib
 import matplotlib.pyplot as plt
 import numpy as np
+import plotly.express as px
+
 
 # Set the page title and description
 st.title("Soft ground tunnel lithology classification using clustering-guided light gradient boosting machine")
@@ -90,26 +92,34 @@ if st.button("Train Model"):
                       experiment_name='lithologies2', normalize=True, normalize_method='minmax',
                       transformation=True, transformation_method='quantile', fix_imbalance=True,
                       fix_imbalance_method=clovrs, remove_multicollinearity=True, multicollinearity_threshold=0.6)
-    best_model1 = compare_models(sort="F1")
-    lightgbm_balanced = create_model('lightgbm', fold=5)
-    tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
-                # Model interpretation
-    interpret_model(tuned_lightgbm_balanced)
+    
+best_model1 = compare_models(sort="F1")
+lightgbm_balanced = create_model('lightgbm', fold=5)
+tuned_lightgbm_balanced = tune_model(lightgbm_balanced, fold=5, optimize="F1")
+    # Model interpretation
+interpret_model(tuned_lightgbm_balanced)
+    
     # Prediction on unseen data
-    unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
-    st.write("Predicted Data:")
-    st.write(unseen_data.head(10))
-    # Visualization
-    st.write("Feature Importance:")
-    plot_model(tuned_lightgbm_balanced, plot="feature")
+unseen_data = predict_model(tuned_lightgbm_balanced, data=df2)
     
-    st.write("Confusion Matrix:")
-    plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+st.write("Predicted Data:")
+st.write(unseen_data.head(10))
     
-    st.write("ROC Curve:")
-    plot_model(tuned_lightgbm_balanced, plot="auc")
+# Visualization
+st.write("Feature Importance:")
+plot_model(tuned_lightgbm_balanced, plot="feature")
+    
+st.write("Confusion Matrix:")
+plot_model(tuned_lightgbm_balanced, plot="confusion_matrix")
+    
+st.write("ROC Curve:")
+plot_model(tuned_lightgbm_balanced, plot="auc")
         
 
+# Explaining the model's predictions using SHAP values
+# https://github.com/slundberg/shap
+explainer = shap.TreeExplainer(tuned_lightgbm_balanced)
+shap_values = explainer.shap_values(df2)
 
         #st.write("SHAP Values:")
         #df2 = df2.astype(np.float32)
