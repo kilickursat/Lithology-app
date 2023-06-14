@@ -62,12 +62,17 @@ def run():
 
     if add_selectbox == 'Batch':
 
-        file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
+        file_upload = st.file_uploader("Upload csv file for predictions", type=["csv","xlsx"])
 
         if file_upload is not None:
-            data = pd.read_csv(file_upload)
+            if file_upload.type == 'application/vnd.ms-excel':  # Check if the uploaded file is in Excel format
+                data = pd.read_excel(file_upload)
+            else:
+                data = pd.read_csv(file_upload)
+            
             predictions = predict_model(estimator=model,data=data)
             st.write(predictions)
+          
 
 if __name__ == '__main__':
     run()
