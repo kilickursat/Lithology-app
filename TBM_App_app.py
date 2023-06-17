@@ -116,34 +116,6 @@ def user_input_features():
 
 df = user_input_features()
 
-
-    # Rest of the code
-
-        """
-        pressure_gauge1 = st.number_input('Pressure gauge 1 (kPa)', min_value=0, value=0)
-        pressure_gauge2 = st.number_input('Pressure gauge 2 (kPa)', min_value=0, value=0)
-        pressure_gauge3 = st.number_input('Pressure gauge 3 (kPa)', min_value=0, value=0)
-        pressure_gauge4 = st.number_input('Pressure gauge 4 (kPa)', min_value=0, value=0)
-        digging_velocity_left = st.number_input('Digging velocity left (mm/min)', min_value=0, value=0)
-        digging_velocity_right = st.number_input('Digging velocity right (mm/min)', min_value=0, value=0)
-        shield_jack_stroke_left = st.number_input('Shield jack stroke left (mm)', min_value=0, value=0)
-        shield_jack_stroke_right = st.number_input('Shield jack stroke right (mm)', min_value=0, value=0)
-        propulsion_pressure = st.number_input('Propulsion pressure (MPa)', min_value=0, value=0)
-        total_thrust = st.number_input('Total thrust (kN)', min_value=0, value=0)
-        cutter_torque = st.number_input('Cutter torque (kNm)', min_value=0, value=0)
-        cutterhead_rotation_speed = st.number_input('Cutterhead rotation speed (rpm)', min_value=0, value=0)
-        screw_pressure = st.number_input('Screw pressure (MPa)', min_value=0, value=0)
-        screw_rotation_speed = st.number_input('Screw rotation speed (rpm)', min_value=0, value=0)
-        gate_opening = st.number_input('Gate opening (%)', min_value=0, max_value=100, value=0)
-        mud_injection_pressure = st.number_input('Mud injection pressure (MPa)', min_value=0, value=0)
-        add_mud_flow = st.number_input('Add mud flow (L/min)', min_value=0, value=0)
-        back_in_injection_rate = st.number_input('Back in injection rate (%)', min_value=0, max_value=100, value=0)
-        
-        output = ""
-
-        output_dict = {'VCS': 0, 'VG': 1,'VSG': 2 }
-        output_df = pd.DataFrame([output_dict])
-        """        
     if st.button("Train Model"):
             # Prediction on unseen data
             unseen_data = predict_model(model, data=df2)
