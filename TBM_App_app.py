@@ -46,6 +46,11 @@ else:
         st.write(df.describe())
 
         
+# Sidebar
+# Header of Specify Input Parameters
+st.sidebar.header('Specify Input Parameters')
+st.sidebar.subheader('Please play with the sidebars to create new prediction')
+
 def run():
     add_selectbox = st.sidebar.selectbox(
     "How would you like to predict?",
