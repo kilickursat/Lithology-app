@@ -87,7 +87,7 @@ def user_input_features():
         output_dict = {'VCS': 0, 'VG': 1,'VSG': 2 }
         output_df = pd.DataFrame([output_dict])
         
-         data = {
+        data = {
         'pressure_gauge1': pressure_gauge1,
         'pressure_gauge2': pressure_gauge2,
         'pressure_gauge3': pressure_gauge3,
