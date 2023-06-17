@@ -63,7 +63,7 @@ def run():
 
     #st.title("Insurance Charges Prediction App")
     
-    if add_selectbox == 'Online':
+    if add_selectbox == 'Batch':
         pressure_gauge1 = st.number_input('Pressure gauge 1 (kPa)', min_value=0, value=0)
         pressure_gauge2 = st.number_input('Pressure gauge 2 (kPa)', min_value=0, value=0)
         pressure_gauge3 = st.number_input('Pressure gauge 3 (kPa)', min_value=0, value=0)
