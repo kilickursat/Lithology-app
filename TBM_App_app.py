@@ -119,7 +119,7 @@ df = user_input_features()
 
     # Rest of the code
 
-    """
+        """
         pressure_gauge1 = st.number_input('Pressure gauge 1 (kPa)', min_value=0, value=0)
         pressure_gauge2 = st.number_input('Pressure gauge 2 (kPa)', min_value=0, value=0)
         pressure_gauge3 = st.number_input('Pressure gauge 3 (kPa)', min_value=0, value=0)
@@ -143,7 +143,7 @@ df = user_input_features()
 
         output_dict = {'VCS': 0, 'VG': 1,'VSG': 2 }
         output_df = pd.DataFrame([output_dict])
-"""        
+        """        
     if st.button("Train Model"):
             # Prediction on unseen data
             unseen_data = predict_model(model, data=df2)
